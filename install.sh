@@ -74,7 +74,20 @@ function install_arm_linaro_4.9.4_2017.01()
     return 0
 }
 
+function install_arm_eabi_14.2.rel1()
+{
+    local workspace_path=$1
+    local install_path=$2
 
+    source ${WORKSPACE_PATH}/scripts/gnu_arm_none_eabi_14.2.rel1.sh
+    log_check_return "source ./scripts/gnu_arm_none_eabi_14.2.rel1.sh"
+
+    install_armcc ${workspace_path} ${install_path}
+
+    log_s "install arm gcc eabi"
+
+    return 0
+}
 
 function do_once_menu()
 {
@@ -86,6 +99,7 @@ function do_once_menu()
     echo -e "1. Install None armcc 9.2-2019.12"
     echo -e "2. Install None armcc 10.3-2021.07"
     echo -e "3. Install Linaro armcc 4.9.4-2017.01"
+    echo -e "4. Install Eabi 14.2.rel1"
     echo -e "9. Install Bash Env"
     echo -e "0. Exit"
     echo -e "----------------------------------------"
@@ -97,6 +111,7 @@ function do_once_menu()
     1)  install_arm_none_9.2_2019.12        ${WORKSPACE_PATH}        ${TOOLCHAIN_PATH} ;;
     2)  install_arm_none_10.3_2021.07       ${WORKSPACE_PATH}        ${TOOLCHAIN_PATH} ;;
     3)  install_arm_linaro_4.9.4_2017.01    ${WORKSPACE_PATH}        ${TOOLCHAIN_PATH} ;;
+    4)  install_arm_eabi_14.2.rel1          ${WORKSPACE_PATH}        ${TOOLCHAIN_PATH} ;;
     9)  install_bash_env;;
     0)  exit 0 ;;
     *)  echo -e "\033[31m[ERROR] Input key is error. \033[0m";;
